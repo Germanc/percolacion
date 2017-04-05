@@ -21,7 +21,8 @@ int main(int argc,char *argv[])
 
   int n=N;
   int z=Z;
-
+// Le puedo dar como parametros el tamaño de la red y la precision 
+// en la probilidad
   if (argc==3) 
      {
        sscanf(argv[1],"%d",&n);
@@ -35,6 +36,8 @@ int main(int argc,char *argv[])
       
   int i, j;
   float denominador;
+  float suma = 0.0;
+// 27000 realizaciones para calcular la probabilidad critica
   for(i=0;i<z;i++)
     {
       prob=0.5;
@@ -56,8 +59,10 @@ int main(int argc,char *argv[])
               prob+=(1.0/denominador);
           }
         }
+      suma = suma + prob;
     }
-  printf("\n Probabilidad critica: %f", prob);
+
+  printf("%f", suma/Z);
   free(red);
 
   return 0;
