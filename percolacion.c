@@ -32,11 +32,32 @@ int main(int argc,char *argv[])
 
   prob=0.5;
   srand(time(NULL));
-  llenar(red,n,prob);
       
-  imprimir(red,n);
-  hoshen(red,n);
-  imprimir(red,n);
+  int i, j;
+  float denominador;
+  for(i=0;i<z;i++)
+    {
+      prob=0.5;
+      denominador=2.0;
+ 
+      srand(time(NULL));
+
+      for(j=0;j<P;j++)
+        {
+          llenar(red,n,prob);
+      
+          hoshen(red,n);
+        
+          denominador=2.0*denominador;
+
+          if (percola(red,n)) {
+             prob+=(-1.0/denominador);
+          } else  {
+              prob+=(1.0/denominador);
+          }
+        }
+    }
+  printf("\n Probabilidad critica: %f", prob);
   free(red);
 
   return 0;
@@ -55,4 +76,17 @@ void imprimir(int *red, int n){
     }
     printf("\n \n");
 
+}
+
+int   percola(int *red,int n) {
+    int i,j,se_repite;
+    se_repite = 0;
+    for(i=0;i<n;i++) {
+        for(j=0;j<n;j++) {
+           if(red[i] == red[(n-1)*n+j]){
+               if(red[i] != 0) se_repite = 1;
+           }
+        }
+    }
+    return se_repite;
 }

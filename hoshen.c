@@ -78,7 +78,6 @@ int hoshen(int *red,int n)
 }
 
 void llenar(int* red, int n, float prob) {
-    srand(time(NULL));  
     float valor_aleatorio;
     int i;
     for(i=0; i<(n*n); i++){
@@ -134,18 +133,4 @@ void  corregir_etiqueta(int *red,int *clase,int n){
         }
     }
 }
-int   percola(int *red,int n){
-    int i;
-    int j;
-    int se_repite = 0;
-    for(i=0; i<n; i++) {
-        for(j=0; j<n; j++) {
-            if(red[i] == red[(n-1)*n+j]) {
-                if(red[i]) {
-                se_repite = 1;
-                }
-            }
-        }
-}
-    return se_repite;
-}
+
