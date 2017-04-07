@@ -6,7 +6,7 @@
 
 #define P     64             // 1/2^P, P=16
 #define Z     27000          // iteraciones
-#define N     30            // lado de la red simulada
+#define N     32          // lado de la red simulada
 
 
 void  llenar(int *red,int n,float prob);
@@ -18,15 +18,20 @@ int main(int argc,char *argv[])
 {
   int    *red;
   float  prob;
+  FILE *fp;
 
   int n=N;
   int z=Z;
 // Le puedo dar como parametros el tamaño de la red y la precision 
 // en la probilidad
-  if (argc==3) 
+  if (argc==4) 
      {
        sscanf(argv[1],"%d",&n);
        sscanf(argv[2],"%d",&z);
+      fp = fopen(argv[3],"w+");
+     }
+     else {
+       fp = fopen("percolacion_b_datos.txt", "w+");
      }
     
   red=(int *)malloc(n*n*sizeof(int));
@@ -47,9 +52,11 @@ for(j=0;j<P;j++) {
       hoshen(red,n);
       suma = suma + percola(red,n);
     }
-  printf("%f , %f\n", prob, suma/z);
+    sigma = suma/z-(suma/z)*(suma/z);
+  fprintf(fp, "%f  %f %f\n", prob, suma/z);
 }
   free(red);
+  fclose(fp);
 
   return 0;
 }
