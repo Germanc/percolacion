@@ -37,32 +37,36 @@ int main(int argc,char *argv[])
   int i, j;
   float denominador;
   float suma = 0.0;
+  float sigma = 0.0;
+  float suma_cuadrado = 0.0;
 // 27000 realizaciones para calcular la probabilidad critica
-  for(i=0;i<z;i++)
+for(i=0;i<z;i++)
+{
+  prob=0.5;
+  denominador=2.0;
+
+  srand(time(NULL));
+
+  for(j=0;j<P;j++)
     {
-      prob=0.5;
-      denominador=2.0;
- 
-      srand(time(NULL));
+      llenar(red,n,prob);
+  
+      hoshen(red,n);
+    
+      denominador=2.0*denominador;
 
-      for(j=0;j<P;j++)
-        {
-          llenar(red,n,prob);
-      
-          hoshen(red,n);
-        
-          denominador=2.0*denominador;
-
-          if (percola(red,n)) {
-             prob+=(-1.0/denominador);
-          } else  {
-              prob+=(1.0/denominador);
-          }
-        }
-      suma = suma + prob;
+      if (percola(red,n)) {
+          prob+=(-1.0/denominador);
+      } else  {
+          prob+=(1.0/denominador);
+      }
     }
+  suma = suma + prob/z;
+  suma_cuadrado = suma_cuadrado + prob*prob/z;
+}
 
-  printf("%f", suma/Z);
+sigma = suma_cuadrado - suma*suma;
+  printf("%f %f", suma, sigma);
   free(red);
 
   return 0;

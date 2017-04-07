@@ -52,8 +52,7 @@ for(j=0;j<P;j++) {
       hoshen(red,n);
       suma = suma + percola(red,n);
     }
-    sigma = suma/z-(suma/z)*(suma/z);
-  fprintf(fp, "%f  %f %f\n", prob, suma/z);
+  fprintf(fp, "%f  %f\n", prob, suma/z);
 }
   free(red);
   fclose(fp);
