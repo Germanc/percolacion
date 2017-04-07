@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include "hoshen.h"
+#include "auxiliares.h"
 
 #define P     16             // 1/2^P, P=16
 #define Z     27000          // iteraciones
@@ -10,9 +11,6 @@
 
 
 void  llenar(int *red,int n,float prob);
-int   percola(int *red,int n);
-
-void imprimir(int *red, int n);
 
 int main(int argc,char *argv[])
 {
@@ -40,32 +38,33 @@ int main(int argc,char *argv[])
   float sigma = 0.0;
   float suma_cuadrado = 0.0;
 // 27000 realizaciones para calcular la probabilidad critica
-for(i=0;i<z;i++)
-{
-  prob=0.5;
-  denominador=2.0;
-
-  srand(time(NULL));
-
-  for(j=0;j<P;j++)
+    for(i=0;i<z;i++)
     {
-      llenar(red,n,prob);
-  
-      hoshen(red,n);
-    
-      denominador=2.0*denominador;
+      prob=0.5;
+      denominador=2.0;
 
-      if (percola(red,n)) {
-          prob+=(-1.0/denominador);
-      } else  {
-          prob+=(1.0/denominador);
-      }
+      srand(time(NULL));
+    // Dentro de este bucle busco pc
+      for(j=0;j<P;j++)
+        {
+          llenar(red,n,prob);
+      
+          hoshen(red,n);
+        
+          denominador=2.0*denominador;
+
+          if (percola(red,n)) {
+              prob+=(-1.0/denominador);
+          } else  {
+              prob+=(1.0/denominador);
+          }
+        }
+      // Sumo para calcular despues el valor medio y el sigma
+      suma = suma + prob/z;
+      suma_cuadrado = suma_cuadrado + prob*prob/z;
     }
-  suma = suma + prob/z;
-  suma_cuadrado = suma_cuadrado + prob*prob/z;
-}
 
-sigma = suma_cuadrado - suma*suma;
+    sigma = sqrt(suma_cuadrado - suma*suma);
   printf("%f %f", suma, sigma);
   free(red);
 
@@ -73,29 +72,4 @@ sigma = suma_cuadrado - suma*suma;
 }
 
 
-void imprimir(int *red, int n){
-    int i;
-    for(i=0;i<(n*n);i++) {
-        if((i%n)==0) {
-            printf("\n");
-        }
-        else {
-            printf(" %i ", red[i]);
-        }
-    }
-    printf("\n \n");
 
-}
-
-int   percola(int *red,int n) {
-    int i,j,se_repite;
-    se_repite = 0;
-    for(i=0;i<n;i++) {
-        for(j=0;j<n;j++) {
-           if(red[i] == red[(n-1)*n+j]){
-               if(red[i] != 0) se_repite = 1;
-           }
-        }
-    }
-    return se_repite;
-}

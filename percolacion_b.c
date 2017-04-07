@@ -3,6 +3,7 @@
 #include <math.h>
 #include <time.h>
 #include "hoshen.h"
+#include "auxiliares.h"
 
 #define P     64             // 1/2^P, P=16
 #define Z     27000          // iteraciones
@@ -14,6 +15,8 @@ int   percola(int *red,int n);
 
 void imprimir(int *red, int n);
 
+// Este programa calcula F(p)dp dividiendo el intervalo [0,1] en 
+// P partes iguales.
 int main(int argc,char *argv[])
 {
   int    *red;
@@ -23,7 +26,8 @@ int main(int argc,char *argv[])
   int n=N;
   int z=Z;
 // Le puedo dar como parametros el tamaño de la red y la precision 
-// en la probilidad
+// en la probilidad, ademas del nombre del archivo donde guardar
+// los datos calculados
   if (argc==4) 
      {
        sscanf(argv[1],"%d",&n);
@@ -31,6 +35,7 @@ int main(int argc,char *argv[])
       fp = fopen(argv[3],"w+");
      }
      else {
+     //nombre del archivo por defecto para guardar los datos
        fp = fopen("percolacion_b_datos.txt", "w+");
      }
     
@@ -41,19 +46,20 @@ int main(int argc,char *argv[])
   int i, j;
   float suma = 0.0;
 // 27000 realizaciones para calcular la probabilidad critica
-for(j=0;j<P;j++) {
-  srand(time(NULL));
-  prob=((float) j)/P;
-  suma = 0.0;
-  for(i=0;i<z;i++)
-    {
- 
-      llenar(red,n,prob);
-      hoshen(red,n);
-      suma = suma + percola(red,n);
+    for(j=0;j<P;j++) {
+      srand(time(NULL));
+      prob=((float) j)/P;
+      suma = 0.0;
+      for(i=0;i<z;i++)
+        {
+     
+          llenar(red,n,prob);
+          hoshen(red,n);
+          suma = suma + percola(red,n);
+        }
+      //El formato es separado por espacios, [p, F(p)]
+      fprintf(fp, "%f  %f\n", prob, suma/z);
     }
-  fprintf(fp, "%f  %f\n", prob, suma/z);
-}
   free(red);
   fclose(fp);
 
@@ -61,29 +67,3 @@ for(j=0;j<P;j++) {
 }
 
 
-void imprimir(int *red, int n){
-    int i;
-    for(i=0;i<(n*n);i++) {
-        if((i%n)==0) {
-            printf("\n");
-        }
-        else {
-            printf(" %i ", red[i]);
-        }
-    }
-    printf("\n \n");
-
-}
-
-int   percola(int *red,int n) {
-    int i,j,se_repite;
-    se_repite = 0;
-    for(i=0;i<n;i++) {
-        for(j=0;j<n;j++) {
-           if(red[i] == red[(n-1)*n+j]){
-               if(red[i] != 0) se_repite = 1;
-           }
-        }
-    }
-    return se_repite;
-}
