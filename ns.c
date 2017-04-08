@@ -9,7 +9,7 @@
  */
 void ns(int *red, int n) {   
    FILE *archivo;
-   archivo=fopen("ns.txt", "a");
+   archivo=fopen("ns.txt", "ab");
    int i, j, k;
    int *lista, *cluster;
    lista=(int *)malloc(n*n*sizeof(int));
