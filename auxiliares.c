@@ -28,8 +28,10 @@ int   percola(int *red,int n) {
     for(i=0;i<n;i++) {
         for(j=0;j<n;j++) {
            if(red[i] == red[(n-1)*n+j]){
-               if(red[i] != 0) se_repite = 1;
-               cluster_percolante = red[i];
+               if(red[i] != 0) { 
+                   se_repite = 1;
+                   cluster_percolante = red[i];
+               }
            }
         }
     }

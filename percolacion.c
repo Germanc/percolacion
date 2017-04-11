@@ -59,7 +59,7 @@ int main(int argc,char *argv[])
         
           denominador=2.0*denominador;
 
-          if (percola(red,n)) {
+          if (percola(red,n)!=0) {
               prob+=(-1.0/denominador);
           } else  {
               prob+=(1.0/denominador);
