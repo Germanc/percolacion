@@ -21,7 +21,7 @@ int main(int argc,char *argv[])
 
     int n=N;
     int z=Z;
-    prob = 0.5;
+    int cluster_percolante;
     // Le puedo dar como parametros el tamaño de la red y la precision 
     // en la probilidad
     prob=0.5;
@@ -47,7 +47,8 @@ int main(int argc,char *argv[])
       hoshen(red, n);
     // Dentro de este bucle busco pc
     // Sumo para calcular despues el valor medio y el sigma
-      ns(red, n);
+      cluster_percolante = percola(red, n);
+      ns(red, n, cluster_percolante);
     }
     // Ahora calculo ns(s). En realidad calculo el numero de elementos por
     // clusters, despues en python analizo esos datos

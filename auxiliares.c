@@ -24,12 +24,17 @@ void imprimir(int *red, int n){
 int   percola(int *red,int n) {
     int i,j,se_repite;
     se_repite = 0;
+    int cluster_percolante = 0;
     for(i=0;i<n;i++) {
         for(j=0;j<n;j++) {
            if(red[i] == red[(n-1)*n+j]){
                if(red[i] != 0) se_repite = 1;
+               cluster_percolante = red[i];
            }
         }
+    }
+    if(se_repite){
+        se_repite = cluster_percolante;
     }
     return se_repite;
 }

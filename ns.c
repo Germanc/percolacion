@@ -7,9 +7,11 @@
 /* 
  * Esta función calcula el numero de clusters de tamaño s
  */
-void ns(int *red, int n) {   
+void ns(int *red, int n, int cluster_percolante) {   
    FILE *archivo;
+   FILE *percolante;
    archivo=fopen("ns.txt", "ab");
+   percolante = fopen("ns_percolante.txt", "a");
    int i, j, k;
    int *lista, *cluster;
    lista=(int *)malloc(n*n*sizeof(int));
@@ -47,9 +49,13 @@ void ns(int *red, int n) {
     */
    for(i=0;i<k;i++){
       fprintf(archivo, " %i ", cluster[i]);
+      if(lista[i] == cluster_percolante){
+          fprintf(percolante, "%i\n", cluster[i]);
+      }
    }
    free(lista);
    free(cluster);
    fclose(archivo);
+   fclose(percolante);
 }
 

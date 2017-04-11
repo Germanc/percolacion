@@ -35,6 +35,7 @@ int main(int argc,char *argv[])
     prob=0.5;
       
     int i, j;
+    int cluster_percolante;
     float denominador;
     float suma = 0.0;
     float sigma = 0.0;
@@ -65,7 +66,9 @@ int main(int argc,char *argv[])
           }
         }
       // Sumo para calcular despues el valor medio y el sigma
-        ns(red, n);
+      cluster_percolante = percola(red, n);
+      ns(red, n, cluster_percolante);
+
       suma = suma + prob/z;
       suma_cuadrado = suma_cuadrado + prob*prob/z;
     }
