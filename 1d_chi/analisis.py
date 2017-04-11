@@ -27,4 +27,5 @@ for j, archivo in enumerate(fnames):
 
 fig, ax = plt.subplots(nrows = 1, ncols = 1)
 ax.plot(tab[:,1], tab[:,0], 'ro')
+plt.savefig("ns_p.pdf")
 plt.show()

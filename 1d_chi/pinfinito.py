@@ -18,4 +18,6 @@ for j, archivo in enumerate(fnames):
     lista[j, :] = [p, data]
 fig, ax = plt.subplots(nrows = 1, ncols = 1)
 ax.plot(lista[:,0], lista[:,1], 'ro')
+plt.savefig("pinfinito.pdf")
+plt.savefig("pinfinito.pdf")
 plt.show()
