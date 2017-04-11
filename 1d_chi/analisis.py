@@ -27,5 +27,7 @@ for j, archivo in enumerate(fnames):
 
 fig, ax = plt.subplots(nrows = 1, ncols = 1)
 ax.plot(tab[:,1], tab[:,0], 'ro')
+ax.set_xlabel(r'Probabilidad $p$')
+ax.set_ylabel(r'$n_s(p)$')
 plt.savefig("ns_p.pdf")
 plt.show()
