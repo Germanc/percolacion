@@ -106,7 +106,6 @@ int main(int argc,char *argv[])
       fprintf(datos, "%f %f\n", rho[i]/(i*i*cantidad), L[i]);
     }
 
-    printf("Cantidad: %i\n", cantidad);
     free(red);
     fclose(urandom);
     free(L);
