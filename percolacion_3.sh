@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in 4 16 32 64 18
+for i in 16 32 64 128
 do
     time ./percolacion_a.o $i 27000
     mv ns.txt 3/ns_$i.txt

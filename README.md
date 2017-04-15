@@ -11,3 +11,37 @@ Implementación de la primera guía de Física Computacional 2017.
 *ns.c*: devuelve en el archivo ns.txt el tamaño de cada uno de los clusters de la red dada como input.
 
 percolacion_d.c: Calcula ns(p) dado cierto p como parámetro. Devuelve ns.txt con los datos para realizar el histograma en python, con 1d/ns.py y devuelve en ns_percolante.txt el tamaño del cluster percolante.
+
+percolacion_kap.c: Calcula $\rho(L)$ según el paper de Kapitulnik. Devuelve los datos en kap.txt. El script kap.py analiza los datos, calcula $D$ la dimensión fractal y genera la figura kap.pdf.
+
+**Como reproducir la guía**
+
+* 1
+    * a) ./percolacion_a.o [4,16,32,64,128] 27000
+    El código está en percolación.c
+
+    * b) ./percolacion_b.o [4,16,32,64,128] 27000
+    Los datos se guardan en percolacion_b_datos.txt
+    1b/analisis.py analiza los datos siendo 1b/percolacion_b_L.txt la nomenclatura para los archivos.
+    Los gráficos queda en L.pdf en 1b/
+    El $P_c$ se puede ver de los datos como el valor más cercano de $F(P)$ a $0.5$
+
+    * c) percolacion_a.o [4,16,32,64,128] 27000
+    Además de devolver $P_c$ en la segunda columna da la dispersión
+
+    * d) ./percolacion_d.sh 
+    Genera todos los datos necesarios en la carpeta 1d_chi/
+    1d_chi/analisis.py genera el análisis de $\chi^2$ a los datos y genera la figura 1d_chi/ns_p.pdf
+    Para calcular $\tau$ se usa el script 1d.sh. Esto genera los archivos necesarios en 1d/. El script 1d/ns.py devuelve el valor de tau calculado con el ajuste
+
+* 2
+    Con los datos generados en 1.d) se puede calcular la fuerza del cluster percolante con el script 1d_chi/pinfinito.py, pero solo en el rango de probabilidades generado por percolacion_d.sh. Se puede modificar este script para generar en un mayor rango de probabilidades trivialmente.
+    
+* 3
+    percolacion_3.sh genera todos los datos necesarios en 3/
+    3/analisis.py genera la figura de $M(L)$ y devuelve en stdout el valor calculado para la dimensión fractal
+
+* Kapitulnik
+    percolacion_kap.o 187 27000 pc+0.035
+    Este script genera en kap.txt la función $\rho(L)$. El script kap.py calcula la dimensión fractal en stdout y la figura correspondiente en kap.pdf
+
