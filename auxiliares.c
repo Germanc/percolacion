@@ -9,7 +9,7 @@ void imprimir(int *red, int n){
     int i;
     for(i=0;i<(n*n);i++) {
         if((i%n)==0) {
-            printf("\n");
+            printf("\n %i ", red[i]);
         }
         else {
             printf(" %i ", red[i]);
