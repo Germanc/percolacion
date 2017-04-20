@@ -22,6 +22,12 @@ ns_c = ns_c[base:rango]/(tamanio*tamanio*27000)
 
 fz_50 = []
 z_50 = []
+fz_60 = []
+z_60 = []
+fz_70 = []
+z_70 = []
+fz_80 =[]
+z_80 = []
 
 fig, ax = plt.subplots(nrows = 1, ncols = 1)
 ax.set_xlabel(r's')
@@ -37,7 +43,16 @@ for j, archivo in enumerate(fnames):
     fz_50.append(fz[90])
     z = (s**sigma)*(p-pc)/pc
     z_50.append(z[90])
+    fz_60.append(fz[100])
+    z_60.append(z[100])
+    fz_70.append(fz[110])
+    z_70.append(z[110])
+    fz_80.append(fz[80])
+    z_80.append(z[80])
 
 ax.plot(z_50, fz_50,'bo')
+ax.plot(z_60, fz_60, 'ro')
+ax.plot(z_70, fz_70, 'go')
+ax.plot(z_80, fz_80, 'yo')
 plt.savefig("fz_problema4.pdf")
 plt.show()
