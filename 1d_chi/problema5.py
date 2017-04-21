@@ -13,7 +13,7 @@ tamanio = 32
 tau = 1.84
 pc = 0.592566
 sigma = 36/91
-rango = int(np.floor(0.12*(tamanio**2)))
+rango = int(np.floor(0.2*(tamanio**2)))
 base = int(np.floor(0.01*(tamanio**2)))
 
 critico = np.loadtxt("ns_0.592.txt")
@@ -50,7 +50,7 @@ for j, archivo in enumerate(fnames):
 #ax.plot(probabilidad, ns_p[:,9], 'bo')
 s_guardar = []
 p_max = []
-for i in range(50, 110):
+for i in range(50, cantidad):
     datos = np.array([probabilidad, ns_p[:,i]])
     datos = np.transpose(datos)
     datos = datos[datos[:,0].argsort()]
