@@ -36,13 +36,12 @@ for j, archivo in enumerate(fnames):
     probabilidad[j] = p
     m2[j] = m2_p
 
-#ax.plot(probabilidad, ns_p[:,9], 'bo')
+ax.plot(probabilidad, m2, 'bo')
 #slope, intercept, r_value, p_value, std_err = linregress(s_guardar_log, p_max_log)
 
 
 
-#plt.savefig(
 
 
-#plt.savefig("fz_problema5.pdf")
-#plt.show()
+plt.savefig("problema6.pdf")
+plt.show()
