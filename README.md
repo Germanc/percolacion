@@ -45,3 +45,11 @@ percolacion_kap.c: Calcula $\rho(L)$ según el paper de Kapitulnik. Devuelve los
     percolacion_kap.o 187 27000 pc+0.035
     Este script genera en kap.txt la función $\rho(L)$. El script kap.py calcula la dimensión fractal en stdout y la figura correspondiente en kap.pdf
 
+* 4
+    1d_chi/problema4.py calcula f(z) para varios s y plotea todo junto en fz_problema4.pdf
+
+* 5
+    1d_chi/problema5.py calcula el valor de sigma usando el metodo propuesto
+
+* 6
+    1d_chi/problema6.py calcula m2, todavía no calcula gamma satisfactoriamente. Genera la figura problema6.pdf
