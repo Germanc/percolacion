@@ -16,7 +16,7 @@ for j, archivo in enumerate(fnames):
     ax.set_xlabel('Probabilidad')
     ax.set_ylabel('F(p)')
     L = archivo.split("_b_")[1].split(".")[0]
-    plt.savefig(L+".pdf")
+    plt.savefig(L+".png")
     plt.show()
 #    slope, intercept, r, pvalue, stderr = linregress(x, y)
 

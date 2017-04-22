@@ -67,9 +67,9 @@ slope, intercept, r_value, p_value, std_err = linregress(s_guardar_log,
                                                          p_max_log)
 print("El valor de sigma es ", -slope)
 
+plt.plot(probabilidad, ns_p[:,100])
+plt.xlabel(r'Probabilidad p')
+plt.ylabel(r'n_{s}(p) con s=140')
 
-#plt.savefig(
-
-
-#plt.savefig("fz_problema5.pdf")
-#plt.show()
+plt.savefig("n140p.png")
+plt.show()
