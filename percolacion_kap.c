@@ -5,7 +5,7 @@
 #include "hoshen.h"
 #include "auxiliares.h"
 
-#define Z     25000          // iteraciones
+#define Z     1000          // iteraciones
 #define N     187          // lado de la red simulada
 
 
