@@ -17,6 +17,8 @@ void ns(int *red, int n, int cluster_percolante) {
    lista=(int *)malloc(n*n*sizeof(int));
    cluster=(int *)malloc(n*n*sizeof(int));
 
+   for(i=0;i<(n*n);i++) lista[i] = 0;
+   for(i=0;i<(n*n);i++) cluster[i] = 0;
    // Cuento el tamaño de lista y cluster
    k = 0;
    /*
@@ -47,12 +49,33 @@ void ns(int *red, int n, int cluster_percolante) {
     * lista[k] = lista de todos los clusters distintos de la red
     * cluster[k] = numero de nodos que tiene cada uno de los clusters de la red
     */
+   int *lista_percolante;
+   int contador = 0;
+   int esta_repetido;
+   lista_percolante = (int *)malloc(sizeof(int)*2*n);
+   for(i=0;i<n;i++){
+       for(j=0;j<n;j++){
+           if(red[i] == red[n*(n-1)+j]){
+               esta_repetido = 0;
+               for(k=0;k<contador;k++) if(lista_percolante[k] == red[i]) esta_repetido = 1;
+                   if(esta_repetido == 0) {
+                       lista_percolante[contador] = red[i];
+                       contador += 1;
+
+                   }   
+           }
+       }
+   }
    for(i=0;i<k;i++){
       fprintf(archivo, " %i ", cluster[i]);
-      if(lista[i] == cluster_percolante){
-          fprintf(percolante, "%i\n", cluster[i]);
+      for(j=0;j<contador;j++){
+          if(lista[i] == lista_percolante[j]){
+              fprintf(percolante, "%i\n", cluster[i]);
+          }
       }
+
    }
+   free(lista_percolante);
    free(lista);
    free(cluster);
    fclose(archivo);
