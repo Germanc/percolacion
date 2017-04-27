@@ -14,6 +14,8 @@ percolacion_d.c: Calcula ns(p) dado cierto p como parámetro. Devuelve ns.txt co
 
 percolacion_kap.c: Calcula $\rho(L)$ según el paper de Kapitulnik. Devuelve los datos en kap.txt. El script kap.py analiza los datos, calcula $D$ la dimensión fractal y genera la figura kap.pdf.
 
+percolacion_m2.c: Calcula directamente en un rango de probabilidades fijo ns y el momento de orden dos m2. Exporta todo en distribucion_ns.txt donde cada fila tiene como primer elemento la probabilidad y después ns para todo s ordenado. Devuelve distribucion_m2.txt el momento de orden dos en el formato PROB M2.
+
 **Como reproducir la guía**
 
 * 1
