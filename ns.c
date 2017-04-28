@@ -12,7 +12,7 @@ void ns(int *red, int n, int cluster_percolante) {
    FILE *percolante;
    archivo=fopen("ns.txt", "ab");
    percolante = fopen("ns_percolante.txt", "a");
-   int i, j, k;
+   int i, j, k, h;
    int *lista, *cluster;
    lista=(int *)malloc(n*n*sizeof(int));
    cluster=(int *)malloc(n*n*sizeof(int));
@@ -57,7 +57,7 @@ void ns(int *red, int n, int cluster_percolante) {
        for(j=0;j<n;j++){
            if(red[i] == red[n*(n-1)+j]){
                esta_repetido = 0;
-               for(k=0;k<contador;k++) if(lista_percolante[k] == red[i]) esta_repetido = 1;
+               for(h=0;h<contador;h++) if(lista_percolante[h] == red[i]) esta_repetido = 1;
                    if(esta_repetido == 0) {
                        lista_percolante[contador] = red[i];
                        contador += 1;
