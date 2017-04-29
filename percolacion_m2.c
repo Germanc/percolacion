@@ -90,12 +90,12 @@ int main(int argc,char *argv[])
 
     float *ns_sinpercolante;
     ns_sinpercolante = (float *)malloc(sizeof(float)*n*n);
-    int P = 60;
+    int P = 200;
     float *m2;
     m2 = (float *)malloc(sizeof(float)*P);
     for(j=0;j<P;j++) // Itero sobre el vector de probabilidades
     {
-        prob = 0.56+(0.06/P)*j;
+        prob = 0.48+(0.17/P)*j;
     
         for(i=0;i<z;i++)
         {
