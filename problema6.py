@@ -28,6 +28,9 @@ m2 = data[:,1]
 #slope, intercept, r_value, p_value, std_err = linregress(s_guardar_log, p_max_log)
 
 plt.plot(probabilidad, m2, 'bo')
+plt.xlabel(r'Probabilidad p')
+plt.ylabel(r'$m_{2}(p)$')
+plt.savefig('m2_p.png')
 plt.show()
 indice = np.argmax(m2)
 pc_p = probabilidad[indice]
@@ -70,10 +73,13 @@ for i in range(1,(np.size(probabilidad2))):
     emesd.append(-1/m)
     pesd.append(prob2[i])
 
-plt.plot(pesi, emesi, 'r')
-plt.plot(pesi, emesi, 'ro')
-plt.plot(pesd, emesd, 'b')
-plt.plot(pesd, emesd, 'bx')
+plt.plot(pesi[5:40], emesi[5:40], 'r')
+plt.plot(pesi[5:40], emesi[5:40], 'ro')
+plt.plot(pesd[5:40], emesd[5:40], 'b')
+plt.plot(pesd[5:40], emesd[5:40], 'bx')
+plt.xlabel(r'$|p-p_{c}|$')
+plt.ylabel(r'$\gamma_{+}, \gamma_{-}$')
+plt.savefig('gamma.png')
 plt.show()
 #
 #derivada1 = np.diff(m21)/np.diff(probabilidad1)
