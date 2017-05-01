@@ -11,12 +11,12 @@ tau = 1.84
 pc = 0.592
 sigma = 36/91
 
-fig, ax = plt.subplots(nrows = 1, ncols = 1)
-ax.set_xlabel(r's')
-ax.set_ylabel(r'f(z)')
 
+#data = np.loadtxt("distribucion_m2.txt")
+#data = np.loadtxt("distribucion_m2_30055064.txt")
 data = np.loadtxt("distribucion_m2_200048065.txt")
-#data = np.loadtxt("temporal")
+data = np.loadtxt("temporal")
+#data = np.loadtxt("distribucion_m2_L64.txt")
 probabilidad = data[:,0]
 m2 = data[:,1]
 
@@ -34,12 +34,14 @@ plt.savefig('m2_p.png')
 plt.show()
 indice = np.argmax(m2)
 pc_p = probabilidad[indice]
-f = 0.000
+pc_p = 0.58
+f = 0.015
 mascara1 = (probabilidad>(pc_p+f)) # lado derecho
 mascara2 = (probabilidad<(pc_p-f)) # lado izquierdo
 
 probabilidad1 = np.log(probabilidad[mascara1]-pc_p)
 probabilidad2 = np.log(-probabilidad[mascara2]+pc_p)
+
 m21 = np.log(m2[mascara1])
 m22 = np.log(m2[mascara2])
 
@@ -59,24 +61,29 @@ probabilidad2 = probabilidad2[indice2]
 m21 = m21[indice1]
 m22 = m22[indice2]
 
-n=4 # numero de puntos para el ajuste lineal
-for i in range(1,(np.size(probabilidad1))):
+n=6 # numero de puntos para el ajuste lineal
+sp = 1
+for i in range(sp,(np.size(probabilidad1))-n):
     maximo = np.min((np.size(probabilidad1), i+n))
+    maximo = i+n
     print(maximo)
     m, b = np.polyfit(probabilidad1[i:maximo], m21[i:maximo],1)
     emesi.append(-m)
-    pesi.append(prob1[i])
+    pesi.append(prob1[i+int(np.floor(n/2))])
 
-for i in range(1,(np.size(probabilidad2))):
+for i in range(sp,(np.size(probabilidad2)-n)):
     maximo = np.min((np.size(probabilidad2), i+n))
+    maximo = i+n
     m, b = np.polyfit(probabilidad2[i:maximo], m22[i:maximo],1)
-    emesd.append(-1/m)
-    pesd.append(prob2[i])
+    emesd.append(-m)
+    pesd.append(prob2[i+int(np.floor(n/2))])
 
-plt.plot(pesi[5:40], emesi[5:40], 'r')
-plt.plot(pesi[5:40], emesi[5:40], 'ro')
-plt.plot(pesd[5:40], emesd[5:40], 'b')
-plt.plot(pesd[5:40], emesd[5:40], 'bx')
+inicio = 0
+fin = 30
+plt.plot(pesi[inicio:fin], emesi[inicio:fin], 'r')
+plt.plot(pesi[inicio:fin], emesi[inicio:fin], 'ro')
+plt.plot(pesd[inicio:fin], emesd[inicio:fin], 'b')
+plt.plot(pesd[inicio:fin], emesd[inicio:fin], 'bx')
 plt.xlabel(r'$|p-p_{c}|$')
 plt.ylabel(r'$\gamma_{+}, \gamma_{-}$')
 plt.savefig('gamma.png')
@@ -102,54 +109,50 @@ plt.show()
 #codigo made by jose
 #m3 = m2
 #m3 = np.column_stack((probabilidad, m2))
-#fig, ax = plt.subplots(nrows = 1, ncols = 1)
+#
+#
 #n = np.argmax(m3[:, 1])
-#print(m3[n, 1])
-#X = m3[:, 0] - m3[n, 0]
-#Y = m3[:, 1]
+##pint('p_max {0}, max: {1}'.format(m2[n, 0], m2[n, 1]))
 #
-#f = 0.005
+## Ordena los arrays.
+#ids = np.argsort(m3[:, 1])
 #
-## Gama - :: Ordena los arrays.
-#Xl = X[X < -f]
-#Yl = Y[X < -f]
+#X = m3[ids, 0] - m3[n, 0]
+#Y = m3[ids, 1]
 #
-#ids = np.argsort(Yl)
-#xl = Xl[ids]
-#yl = Yl[ids]
+## Usa el Método Germán-Elliot.
 #
-## Gama +
-#Xr = X[X > f]
-#Yr = Y[X > f]
+#f = 0
 #
-#ids = np.argsort(Yr)
-#xr = Xr[ids]
-#yr = Yr[ids]
+#X_lft = X[X < -f]
+#Y_lft = Y[X < -f]
 #
-## Toma distinta cantidad de puntos a izquierda y derecha.
-#ll = xl.shape[0]
-#lr = xr.shape[0]
+#X_rgt = X[X > f]
+#Y_rgt = Y[X > f]
 #
-#gama_l = np.empty((ll - 2, 2))
-#gama_r = np.empty((lr - 2, 2))
+#dl = 3
 #
-#for n in range(2, ll):
-#    res_l = linregress(np.log(-xl[ll - n:]), np.log(yl[ll - n:]))
-#    gama_l[n - 2, :] = [ res_l[0], res_l[4] ]
+#max_lft = int(np.floor(X_lft.shape[0]/dl))
+#max_rgt = int(np.floor(X_rgt.shape[0]/dl))
+#gamma_lft = np.empty((max_lft, 2))
+#gamma_rgt = np.empty((max_rgt, 2))
 #
-#print("")
-#for n in range(2, lr):
-#    res_r = linregress(np.log(xr[lr - n:]), np.log(yr[lr - n:]))
-#    gama_r[n - 2, :] = [ res_r[0], res_r[4] ]
+#dist = np.arange(max_lft)
+#dist_a = np.arange(max_rgt)
 #
+#for n in dist:
+#    res = linregress(np.log(-X_lft[n:n + dl]), np.log(Y_lft[n:n + dl]))
+#    gamma_lft[n, :] = [ res[0], res[4] ]
 #
-#ax.plot(m3[:, 0], m3[:,1], 'o')
+#for n in dist_a:
+#    res = linregress(np.log(X_rgt[n:n + dl]), np.log(Y_rgt[n:n + dl]))
+#    gamma_rgt[n, :] = [ res[0], res[4] ]
 #
-#ax.cla()
-#
-#ln = np.min([ ll, lr ]) - 2
-#n = np.arange(ln)
-#
-#ax.errorbar(n, -1/gama_l[:ln, 0], yerr = gama_l[:ln, 1], fmt = 'o')
-#ax.errorbar(n, -gama_r[:ln, 0], yerr = gama_r[:ln, 1], fmt = 's')
+##gamma_rgt[:,0] = savgol_filter(gamma_rgt[:,0], 11, 3)
+##gamma_lft[:,0] = savgol_filter(gamma_lft[:,0], 11, 3)
+#plt.plot(dist, -gamma_lft[:, 0], 'bo')
+#plt.plot(dist, -gamma_lft[:, 0], 'b')
+#plt.plot(dist_a, -gamma_rgt[:, 0], 'ro')
+#plt.plot(dist_a, -gamma_rgt[:, 0], 'r')
 #plt.show()
+#
